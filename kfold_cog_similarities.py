@@ -206,8 +206,12 @@ filtered['simmilarity_conn'] = simmilarity_conn
 filteredreg = filtered
 filteredreg.dropna(subset=['STPR'], inplace=True)
 # Define the features and target variable
-X = filteredreg.simmilarity_both.values.reshape(-1, 1) 
+X = filteredreg.simmilarity_conn.values.reshape(-1, 1) 
 y = filteredreg['STPR']
+#y = filteredreg['LTPR']
+#y = filteredreg['RECOGNITION_PC']
+
+
 
 # Initialize the model
 model = LinearRegression()
@@ -224,4 +228,12 @@ print("R-squared scores for each fold:", scores)
 print("Average R-squared score:", np.mean(scores))
 
 
+
+rmse_scores = np.sqrt(-cross_val_score(model, X, y, cv=kf, scoring='neg_mean_squared_error'))
+
+print("RMSE for each fold:", rmse_scores)
+
+# Compute the average RMSE
+average_rmse = np.mean(rmse_scores)
+print("Average RMSE:", average_rmse)
 
