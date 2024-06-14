@@ -204,12 +204,12 @@ filtered['simmilarity_conn'] = simmilarity_conn
 
 
 filteredreg = filtered
-filteredreg.dropna(subset=['STPR'], inplace=True)
+filteredreg.dropna(subset=['RECOGNITION_PC'], inplace=True)
 # Define the features and target variable
 X = filteredreg.simmilarity_conn.values.reshape(-1, 1) 
-y = filteredreg['STPR']
+#y = filteredreg['STPR']
 #y = filteredreg['LTPR']
-#y = filteredreg['RECOGNITION_PC']
+y = (filteredreg['BMI'] - np.mean(filteredreg['BMI']) ) / np.std (filteredreg['BMI'])
 
 
 
